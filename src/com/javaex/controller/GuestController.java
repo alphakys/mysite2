@@ -24,7 +24,7 @@ public class GuestController extends HttpServlet {
 		
 		GuestDao gd = new GuestDao();
 		
-		
+		//int no = Integer.parseInt(request.getParameter("no"));
 		//String name = request.getParameter("name");
 		//String password = request.getParameter("pw");
 		//String content = request.getParameter("content");
@@ -51,6 +51,16 @@ public class GuestController extends HttpServlet {
 			WebUtil.forward("/WEB-INF/views/guestbook/deleteForm.jsp", request, response);
 			
 			
+		}
+		
+		else if("delete".equals(action)) {
+			
+			int no = Integer.parseInt(request.getParameter("no"));
+			String password = request.getParameter("password");
+			
+			int result = gd.delete(no, password);
+			
+			System.out.println(result);
 		}
 		
 		else {

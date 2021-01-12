@@ -137,7 +137,7 @@ List<GuestVo> gList = (List<GuestVo>)request.getAttribute("guestList");
 							<td><%=gList.get(i).no%></td>
 							<td><%=gList.get(i).name%></td>
 							<td><%=gList.get(i).date%></td>
-							<td><a href="/mysite2/guest?action=deleteForm">[삭제]</a></td>
+							<td><a href="/mysite2/guest?action=deleteForm&no=<%=gList.get(i).no%>">[삭제]</a></td>
 						</tr>
 						
 						<tr>

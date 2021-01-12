@@ -15,7 +15,36 @@
 		<link href="/mysite2/assets/css/mysite.css" rel="stylesheet" type="text/css">
 		<link href="/mysite2/assets/css/user.css" rel="stylesheet" type="text/css">
 		
-
+		<script>
+			function checkValue(){
+				
+				if(!document.userInfo.uid.value){
+					alert("id를 입력해주세요");
+					return false;
+				}
+				
+				if(!document.userInfo.pw.value){
+					alert("비밀번호를 입력해주세요");
+					return false;
+				}
+				
+				if(!document.userInfo.uname.value){
+					alert("이름을 입력해주세요");
+					return false;
+				}
+				
+				if(!document.userInfo.gender.value){
+					alert("성별을 선택해주세요");
+					return false;
+				}
+				
+				
+			}
+			
+			
+		
+		
+		</script>
 		
 		
 	</head>
@@ -83,7 +112,7 @@
 					<div id="joinForm">
 					
 						<form action="/mysite2/user" method="post" name="userInfo" 
-						onsubmit = "return checkValue()">
+						onsubmit = "return checkValue();">
 	
 							<!-- 아이디 -->
 							<div class="form-group">
