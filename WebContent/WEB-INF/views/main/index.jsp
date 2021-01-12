@@ -1,4 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import = "com.javaex.vo.UserVo" %>
+
+<% 
+
+UserVo uv;
+
+	uv = (UserVo)session.getAttribute("authUser");
+
+%>
+
 <!DOCTYPE html>
 
 <html>
@@ -10,8 +20,8 @@
 		
 		<title>Main</title>
 		
-		<link href="/mysite2/assets/css/mysite.css" rel="stylesheet" type="text/css">
-		<link href="/mysite2/assets/css/main.css" rel="stylesheet" type="text/css">
+		<link href="/mysite2/assets/css/mysite1.css" rel="stylesheet" type="text/css">
+		<link href="/mysite2/assets/css/main1.css" rel="stylesheet" type="text/css">
 		
 	</head>
 
@@ -23,17 +33,26 @@
 			<div id="header">
 				<h1><a href="/mysite2/main">MySite</a></h1>
 				
-				<!-- 
+				
+				<%if(uv==null){ %>
 				<ul>
-					<li><a href="">로그인</a></li>
-					<li><a href="">회원가입</a></li>
+					<li><a href="/mysite2/user?action=loginForm">로그인</a></li>
+					<li><a href="/mysite2/user?action=joinForm">회원가입</a></li>
 				</ul>
-				-->
+				
+				<%}else {%>
+				<!-- 로그인 시 -->
+				
+				
 				<ul>
-					<li>강용수 님 안녕하세요^^</li>
-					<li><a href="">로그아웃</a></li>
+					<li><%=uv.getName()%> 님 안녕하세요^^</li>
+					<li><a href="/mysite2/user?action=logout">로그아웃</a></li>
 					<li><a href="/mysite2/user?action=modifyForm">회원정보수정</a></li>
 				</ul>
+				<%} %>
+				
+				
+				
 				
 			</div>
 			<!-- //header -->
@@ -65,11 +84,16 @@
 					
 					<div id="greetings">
 						<p class="text-xlarge">
+						
+						
 							<span class="bold">안녕하세요!!<br>
-							강용수의 MySite에 오신 것을 환영합니다.<br>
+							<%if(uv!=null){ %>
+							<%=uv.getName()%>의 MySite에 오신 것을 환영합니다.<br>
 							<br>
+							<%} %>
 							이 사이트는 웹 프로그램밍 실습과제 예제 사이트입니다.<br>
 							</span>
+							
 							<br>
 							사이트 소개, 회원가입, 방명록, 게시판으로 구성되어 있으며<br>
 							jsp&serlvet(모델2) 방식으로 제작되었습니다.<br>

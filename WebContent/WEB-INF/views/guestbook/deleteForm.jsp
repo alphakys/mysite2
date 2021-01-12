@@ -2,6 +2,15 @@
 
 <%
 int no = Integer.parseInt(request.getParameter("no"));
+
+int result;
+
+try{
+	result = (int)request.getAttribute("result");
+}
+catch(NullPointerException e){
+	result = 1;
+}
 %>
 
 <!DOCTYPE html>
@@ -11,13 +20,36 @@ int no = Integer.parseInt(request.getParameter("no"));
 
 	<head>
 		<meta charset="UTF-8">
+		
 		<title>DeleteForm</title>
+		
 		<link href="/mysite2/assets/css/mysite.css" rel="stylesheet" type="text/css">
 		<link href="/mysite2/assets/css/guestbook.css" rel="stylesheet" type="text/css">
 
+		<script>
+		
+			function wrong(){
+				alert("비밀번호가 틀렸습니다.");
+			}
+		
+		</script>
+		
+		
+		<%if(result==0){ %>
+			
+			<script>
+				wrong();
+			
+			</script>
+			
+	
+		<%} %>
+		
+		
 	</head>
 
 	<body>
+		
 		
 		<div id="wrap">
 	
@@ -83,7 +115,7 @@ int no = Integer.parseInt(request.getParameter("no"));
 							
 							<tr>
 								<td>비밀번호</td>
-								<td><input type="password" name="pass"></td>
+								<td><input type="password" name="password"></td>
 								<td class="text-left"><button type="submit">삭제</button></td>
 								<td><a href="/guestbook2/gbc">[메인으로 돌아가기]</a></td>
 							</tr>

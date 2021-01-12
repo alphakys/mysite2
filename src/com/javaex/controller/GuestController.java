@@ -60,7 +60,14 @@ public class GuestController extends HttpServlet {
 			
 			int result = gd.delete(no, password);
 			
-			System.out.println(result);
+			if(result ==1) {
+				WebUtil.redirect("/mysite2/guest", response);
+			}
+			else {
+				request.setAttribute("no", no);
+				request.setAttribute("result", result);
+				WebUtil.forward("/WEB-INF/views/guestbook/deleteForm.jsp", request, response);
+			}
 		}
 		
 		else {
@@ -71,6 +78,14 @@ public class GuestController extends HttpServlet {
 			WebUtil.forward("/WEB-INF/views/guestbook/addList.jsp", request, response);
 		}
 
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 

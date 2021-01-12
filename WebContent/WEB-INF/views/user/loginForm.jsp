@@ -1,10 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<% 
 
-<%  %>
+String result;
+
+try{
+	result = (String)request.getAttribute("result");			
+}
+catch(NullPointerException e){
+	 result = "login";
+ }
 
 
-
+%>
 <!DOCTYPE html>
 
 
@@ -15,10 +23,30 @@
 	
 	<meta charset="UTF-8">
 	
-	<title>Insert title here</title>
+	<title>LoginForm</title>
 	
 	<link href="/mysite2/assets/css/mysite.css" rel="stylesheet" type="text/css">
 	<link href="/mysite2/assets/css/user.css" rel="stylesheet" type="text/css">
+	
+	<script type="text/javascript">
+	
+		function fail(){
+			
+			alert("아이디 또는 비밀번호가 틀렸습니다. \n다시 입력해주세요");
+			
+		}
+	
+	</script>
+	
+	<%if("fail".equals(result)){ %>
+		
+		<script>
+			fail();
+			
+		</script>
+	
+	<%} %>
+	
 	
 	</head>
 	
@@ -81,7 +109,7 @@
 				
 					<div id="loginForm">
 					
-						<form action="/mysite2/user" method="get">
+						<form action="/mysite2/user" method="post">
 	
 							<!-- 아이디 -->
 							<div class="form-group">
@@ -92,7 +120,7 @@
 							<!-- 비밀번호 -->
 							<div class="form-group">
 								<label class="form-text" for="input-pass">비밀번호</label> 
-								<input type="text" id="input-pass" name="pw" value="" placeholder="비밀번호를 입력하세요"	>
+								<input type="password" id="input-pass" name="pw" value="" placeholder="비밀번호를 입력하세요"	>
 							</div>
 	
 							

@@ -113,31 +113,31 @@ public class UserDao {
 	
 	
 	//DB에서 아이디, 패스워드 확인용 user 받기
-	public UserVo getUser(UserVo uv){
+	public UserVo getUser(String id, String password){
 		
 		getConnection();
 		
-		UserVo uvResult=null;
+		UserVo authUser=null;
 		
 		try {
 		    // 3. SQL문 준비 / 바인딩 / 실행
-		    String query = "select   id , ";
-				   query += "        password ";
+		    String query = "select   no , ";
+				   query += "        name ";
 				   query += "from   users ";
 				   query += "where id = ? and password = ? ";
 				   
 			pstmt = conn.prepareStatement(query);	   
-			pstmt.setString(1, uv.getId());	   
-			pstmt.setString(2, uv.getPw());
+			pstmt.setString(1, id);	   
+			pstmt.setString(2, password);
 			
 			rs = pstmt.executeQuery();			
 			
 			while(rs.next()) {
 		
-				String id = rs.getString("id");
-				String password = rs.getString("password");
+				int no = rs.getInt("no");
+				String name = rs.getString("name");
 				
-				uvResult = new UserVo(id, password);
+				authUser = new UserVo(no, name);
 				
 			}
 			
@@ -148,12 +148,49 @@ public class UserDao {
 		
 		close();
 		
-		return uvResult;
+		return authUser;
 		
 	}
 
 	
-	
+	//DB에서 no로 user 받기(목적 : 새로운 세션 생성용) || 오버로딩? 
+	public UserVo getUser(int num){
+		
+		getConnection();
+		
+		UserVo newUser=null;
+		
+		try {
+		    // 3. SQL문 준비 / 바인딩 / 실행
+		    String query = "select   no , ";
+				   query += "        name ";
+				   query += "from   users ";
+				   query += "where no = ? ";
+				   
+			pstmt = conn.prepareStatement(query);	   
+			pstmt.setInt(1, num);	   
+			
+			rs = pstmt.executeQuery();			
+			
+			while(rs.next()) {
+		
+				int no = rs.getInt("no");
+				String name = rs.getString("name");
+				
+				newUser = new UserVo(no, name);
+				
+			}
+			
+		    
+		}  catch (SQLException e) {
+		    System.out.println("error:" + e);
+		} 
+		
+		close();
+		
+		return newUser;
+		
+	}
 	
 	
 	public List<UserVo> getList(){
@@ -234,16 +271,18 @@ public class UserDao {
 		
 		try {
 		    // 3. SQL문 준비 / 바인딩 / 실행
-		    String query = "update guestbook ";
-		    	   query += "set   content = ?, ";			   
-				   query += "      reg_date = sysdate ";
-				   query +="where no = ? and name = ? and password = ? ";
+		    String query = "update users ";
+		    	   query += "set   password = ?, ";			   
+				   query += "      name = ?, ";
+				   query += "      gender = ? ";
+				   query +="where no = ? ";
 
-		    pstmt = conn.prepareStatement(query);	   
-		    pstmt.setString(1, uv.content);
-		    pstmt.setInt(2, uv.no); 
-		    pstmt.setString(3, uv.name);
-		    pstmt.setString(4, uv.pw);
+		    pstmt = conn.prepareStatement(query);	
+		    
+		    pstmt.setString(1, uv.getPw());
+		    pstmt.setString(2, uv.getName()); 
+		    pstmt.setString(3, uv.getGender());
+		    pstmt.setInt(4, uv.getNo());
 		    
 		    // 4. 결과처리
 		   count = pstmt.executeUpdate();
