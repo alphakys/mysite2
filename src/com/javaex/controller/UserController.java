@@ -57,31 +57,8 @@ public class UserController extends HttpServlet {
 		
 		else if("loginForm".equals(action)) {
 			
-			//로그인 실패시	
-			String result = request.getParameter("result");
-			
-			
-			if("fail".equals(result)) {
-				
-				request.setAttribute("result", result);
-				
 				WebUtil.forward("/WEB-INF/views/user/loginForm.jsp", request, response);
 				
-			}
-			
-			else if(request.getSession().isNew()==true) {
-				
-				WebUtil.forward("/WEB-INF/views/user/loginForm.jsp", request, response);
-			}
-			
-			//로그인 시도시
-			else {
-				
-				WebUtil.forward("/WEB-INF/views/user/loginForm.jsp", request, response);
-
-			}
-			
-
 		}
 		
 		

@@ -2,13 +2,13 @@
 
 <% 
 
-String result;
+String result = request.getParameter("result");
 
 try{
-	result = (String)request.getAttribute("result");			
+	result = request.getParameter("result");			
 }
 catch(NullPointerException e){
-	 result = "login";
+	 result = null;
  }
 
 
