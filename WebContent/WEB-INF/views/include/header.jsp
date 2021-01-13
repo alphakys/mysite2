@@ -5,14 +5,6 @@
 <%
 UserVo uv = (UserVo)session.getAttribute("authUser"); 
 
-if(request.getSession().isNew()==true) {
-	
-	System.out.println("1");
-}
-else{
-	System.out.println("2");
-
-}
 %>
 
 			<div id="header">

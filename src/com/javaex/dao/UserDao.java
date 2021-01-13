@@ -27,7 +27,7 @@ public class UserDao {
 		private String pw = "webdb";
 		
 		// --리스트 필드--	
-		List<UserVo> gList;
+		List<UserVo> uList;
 	
 		// --각 메소드 결과처리 위한 필드--
 		int count=0;
@@ -206,7 +206,7 @@ public class UserDao {
 	public List<UserVo> getList(){
 		
 		getConnection();
-		gList = new ArrayList<>();
+		uList = new ArrayList<>();
 		
 		try {
 		    // 3. SQL문 준비 / 바인딩 / 실행
@@ -228,7 +228,7 @@ public class UserDao {
 		    	String content = rs.getString(4);
 		    	String date = rs.getString(5);
 		    	
-		    	gList.add(new UserVo(no, name, pw, content, date));
+		    	uList.add(new UserVo(no, name, pw, content, date));
 		    }
 		   
 		    
@@ -239,7 +239,7 @@ public class UserDao {
 		
 		close();
 		
-		return gList;
+		return uList;
 	}
 	
 	//DB에서 삭제

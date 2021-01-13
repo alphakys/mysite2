@@ -100,7 +100,7 @@ UserVo uv = (UserVo)request.getAttribute("authUser");
 								
 								<% if("female".equals(uv.getGender())){ %>
 								checked="checked" <% }%>> 
-								 > 
+								 
 	
 							</div>
 	

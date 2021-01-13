@@ -1,52 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="/mysite2/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="/mysite2/assets/css/board.css" rel="stylesheet" type="text/css">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-</head>
+<!DOCTYPE html>
+
+
+<html>
+
+
+	<head>
+	
+		<meta charset="UTF-8">
+		
+		<title>Insert title here</title>
+		
+		<link href="/mysite2/assets/css/mysite.css" rel="stylesheet" type="text/css">
+		<link href="/mysite2/assets/css/board.css" rel="stylesheet" type="text/css">
+	
+	</head>
 
 
 <body>
+
+
 	<div id="wrap">
 
-		<div id="header">
-			<h1><a href="">MySite</a></h1>
+			<!-- header and navi -->
+			
+			<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 			
 			
-			<!--  -->
-				<!-- 로그인실패시, 로그인전 -->
-				<ul>
-					<li><a href="">로그인</a></li>
-					<li><a href="">회원가입</a></li>
-				</ul>
-				
-			<!-- 로그인성공했을때 -->	
-			<!-- 
-				<ul>
-					<li>황일영 님 안녕하세요^^</li>
-					<li><a href="">로그아웃</a></li>
-					<li><a href="">회원정보수정</a></li>
-				</ul>
-			-->
-		</div>
-		<!-- //header -->
-		
-		<div id="nav">
-			<ul>
-				<li><a href="">방명록</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="">게시판</a></li>
-				<li><a href="">입사지원서</a></li>
-			</ul>
-			<div class="clear"></div>
-		</div>
-		<!-- //nav -->
-
 		<div id="aside">
 			<h2>게시판</h2>
 			<ul>
@@ -74,19 +55,22 @@
 
 			<div id="board">
 				<div id="writeForm">
-					<form action="#" method="get">
+				
+					<form action="/mysite2/board" method="get">
+						<input type="hidden" name="action" value="insert">
+						
 						<!-- 제목 -->
 						<div class="form-group">
 							<label class="form-text" for="txt-title">제목</label>
-							<input type="text" id="txt-title" name="" value="" placeholder="제목을 입력해 주세요">
+							<input type="text" id="txt-title" name="title" value="" placeholder="제목을 입력해 주세요">
 						</div>
 					
 						<!-- 내용 -->
 						<div class="form-group">
-							<textarea id="txt-content"></textarea>
+							<textarea id="txt-content" name="content"></textarea>
 						</div>
 						
-						<a id="btn_cancel" href="">취소</a>
+						<a id="btn_cancel" href="/mysite2/board">취소</a>
 						<button id="btn_add" type="submit" >등록</button>
 						
 					</form>
@@ -99,10 +83,9 @@
 		<!-- //content  -->
 		<div class="clear"></div>
 
-		<div id="footer">
-			Copyright ⓒ 2020 황일영. All right reserved
-		</div>
-		<!-- //footer -->
+		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+	
+	
 	</div>
 	<!-- //wrap -->
 

@@ -56,10 +56,10 @@ public class UserController extends HttpServlet {
 		
 		
 		else if("loginForm".equals(action)) {
-			
+			//***************************************************************
 			//집중하자 forward는 주소값 그대로 파일로 보낸다 속성값 넣을 필요가 없다!!!!!!!!!!!!!!!!!!!!!!
 				WebUtil.forward("/WEB-INF/views/user/loginForm.jsp", request, response);
-				
+			//***************************************************************
 		}
 		
 		
@@ -145,10 +145,16 @@ public class UserController extends HttpServlet {
 				
 				session = request.getSession();
 								
-				UserVo authUser = (UserVo)session.getAttribute("authUser");
+				UserVo modiUser = (UserVo)session.getAttribute("authUser");
 				
-				authUser.setName(name);
+				
+				//****************************
+				modiUser.setName(name);
 						
+				//세션에서 불러온 Vo 수정해주면 세션의 Vo 정보만 바뀐다.
+				//다시 속성 불러와서 설정해줄 필요가 없다.
+				//****************************
+				
 				WebUtil.redirect("/mysite2/main", response);
 				
 			}

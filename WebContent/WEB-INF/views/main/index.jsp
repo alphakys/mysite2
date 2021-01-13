@@ -1,17 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "com.javaex.vo.UserVo" %>
 
-<% 
-UserVo uv;
-try{
-	uv = (UserVo)request.getSession().getAttribute("authUser");
-}
- catch(NullPointerException e){
-	 uv=null;
- }
-
-
-%>
 
 <!DOCTYPE html>
 
@@ -56,10 +45,10 @@ try{
 						
 							<span class="bold">안녕하세요!!<br>
 							
-							<% if(uv!=null){ %>
-							<%=uv.getName()%>의
 							
-							<%} %>
+							강용수의
+							
+							
 							 MySite에 오신 것을 환영합니다.<br>
 							<br>
 							
