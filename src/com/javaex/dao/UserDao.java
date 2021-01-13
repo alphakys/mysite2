@@ -122,13 +122,15 @@ public class UserDao {
 		try {
 		    // 3. SQL문 준비 / 바인딩 / 실행
 		    String query = "select   no , ";
-				   query += "        name ";
+		    	   query += "        name ";
 				   query += "from   users ";
 				   query += "where id = ? and password = ? ";
 				   
 			pstmt = conn.prepareStatement(query);	   
+			
 			pstmt.setString(1, id);	   
 			pstmt.setString(2, password);
+			
 			
 			rs = pstmt.executeQuery();			
 			
@@ -158,12 +160,15 @@ public class UserDao {
 		
 		getConnection();
 		
-		UserVo newUser=null;
+		UserVo authUser=null;
 		
 		try {
 		    // 3. SQL문 준비 / 바인딩 / 실행
 		    String query = "select   no , ";
-				   query += "        name ";
+				   query += "        id, ";
+				   query += "        password, ";
+				   query += "        name, ";
+				   query += "        gender ";
 				   query += "from   users ";
 				   query += "where no = ? ";
 				   
@@ -175,9 +180,14 @@ public class UserDao {
 			while(rs.next()) {
 		
 				int no = rs.getInt("no");
+				String id = rs.getString("id");
+				String password = rs.getString("password");
 				String name = rs.getString("name");
+				String gender = rs.getString("gender");
 				
-				newUser = new UserVo(no, name);
+				
+				
+				authUser = new UserVo(no, id, password, name, gender);
 				
 			}
 			
@@ -188,7 +198,7 @@ public class UserDao {
 		
 		close();
 		
-		return newUser;
+		return authUser;
 		
 	}
 	

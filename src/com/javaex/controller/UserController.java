@@ -60,17 +60,19 @@ public class UserController extends HttpServlet {
 			//로그인 실패시	
 			String result = request.getParameter("result");
 			
+			
 			if("fail".equals(result)) {
+				
 				request.setAttribute("result", result);
+				
 				WebUtil.forward("/WEB-INF/views/user/loginForm.jsp", request, response);
 				
 			}
 			
-			//로그인  상태에서 로그인 시도시
-		//	else if(request.getSession(false).getId()!=null) {
-		//		System.out.println(request.getSession(false).getId());
-		//		WebUtil.redirect("/mysite2/main", response);
-		//	}
+			else if(request.getSession().isNew()==true) {
+				
+				WebUtil.forward("/WEB-INF/views/user/loginForm.jsp", request, response);
+			}
 			
 			//로그인 시도시
 			else {
@@ -132,6 +134,17 @@ public class UserController extends HttpServlet {
 		
 		else if("modifyForm".equals(action)) {
 			
+			session = request.getSession();
+			
+			//로그인 한 회원의 세션에서 회원 no 가져오기
+			UserVo authUser = (UserVo)session.getAttribute("authUser");
+			
+			//회원의 no를 통해서 value에 넣을 값들 받아오기 value에 값들을 넣어줘야 한다면 이 방법 선택 몰라서 전 방법 선택
+			//modiForm에 뿌릴 회원 정보 담은 user get
+			UserVo modiUser = ud.getUser(authUser.getNo());
+			
+			request.setAttribute("modiUser", modiUser);
+			
 			WebUtil.forward("/WEB-INF/views/user/modifyForm.jsp", request, response);
 		}
 		
@@ -153,18 +166,11 @@ public class UserController extends HttpServlet {
 			if(result==1) {
 				
 				session = request.getSession();
+								
+				UserVo authUser = (UserVo)session.getAttribute("authUser");
 				
-				//기존 속성 지우기
-				session.removeAttribute("authUser");				
-				
-				//변경된 유저 가져오기 (회원 번호를 파라미터로 가진 메소드 오버로딩?해서 위에 받아온 정보를 가지고 기존의 메소드 이용할까 했지만
-				//이미 정보가 변경됐기 때문에 불가능하다 판단 오버로딩 하는데 오랜 시간 안걸릴듯 해서 그냥 메소드 생성)
-				
-				UserVo newUser = ud.getUser(no);
-				
-				//새로 변경 된 Vo는 new로 명명
-				session.setAttribute("authUser",newUser);
-				
+				authUser.setName(name);
+						
 				WebUtil.redirect("/mysite2/main", response);
 				
 			}

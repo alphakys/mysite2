@@ -2,10 +2,14 @@
 <%@ page import = "com.javaex.vo.UserVo" %>
 
 <% 
-
 UserVo uv;
+try{
+	uv = (UserVo)request.getSession().getAttribute("authUser");
+}
+ catch(NullPointerException e){
+	 uv=null;
+ }
 
-	uv = (UserVo)session.getAttribute("authUser");
 
 %>
 
@@ -20,8 +24,8 @@ UserVo uv;
 		
 		<title>Main</title>
 		
-		<link href="/mysite2/assets/css/mysite1.css" rel="stylesheet" type="text/css">
-		<link href="/mysite2/assets/css/main1.css" rel="stylesheet" type="text/css">
+		<link href="/mysite2/assets/css/mysite.css" rel="stylesheet" type="text/css">
+		<link href="/mysite2/assets/css/main.css" rel="stylesheet" type="text/css">
 		
 	</head>
 
@@ -30,45 +34,9 @@ UserVo uv;
 	
 		<div id="wrap">
 	
-			<div id="header">
-				<h1><a href="/mysite2/main">MySite</a></h1>
-				
-				
-				<%if(uv==null){ %>
-				<ul>
-					<li><a href="/mysite2/user?action=loginForm">로그인</a></li>
-					<li><a href="/mysite2/user?action=joinForm">회원가입</a></li>
-				</ul>
-				
-				<%}else {%>
-				<!-- 로그인 시 -->
-				
-				
-				<ul>
-					<li><%=uv.getName()%> 님 안녕하세요^^</li>
-					<li><a href="/mysite2/user?action=logout">로그아웃</a></li>
-					<li><a href="/mysite2/user?action=modifyForm">회원정보수정</a></li>
-				</ul>
-				<%} %>
-				
-				
-				
-				
-			</div>
-			<!-- //header -->
+			<!-- header, navi -->
 	
-	
-	
-			<div id="nav">
-				<ul>
-					<li><a href="/mysite2/guest">방명록</a></li>
-					<li><a href="">갤러리</a></li>
-					<li><a href="">게시판</a></li>
-					<li><a href="">입사지원서</a></li>
-				</ul>
-				<div class="clear"></div>
-			</div>
-			<!-- //nav -->
+			<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
 	
 	
 
@@ -87,10 +55,13 @@ UserVo uv;
 						
 						
 							<span class="bold">안녕하세요!!<br>
+							
 							<%if(uv!=null){ %>
-							<%=uv.getName()%>의 MySite에 오신 것을 환영합니다.<br>
-							<br>
+							uv.getName()의
 							<%} %>
+							 MySite에 오신 것을 환영합니다.<br>
+							<br>
+							
 							이 사이트는 웹 프로그램밍 실습과제 예제 사이트입니다.<br>
 							</span>
 							
@@ -117,10 +88,8 @@ UserVo uv;
 			<!-- //full-content -->
 			<div class="clear"></div>
 			
-			<div id="footer">
-				Copyright ⓒ 2021 강용수. All right reserved
-			</div>
 			<!-- //footer -->
+			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 	
 		</div>
 		<!-- //wrap -->

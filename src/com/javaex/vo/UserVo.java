@@ -23,8 +23,16 @@ public class UserVo {
 		this.gender = gender;
 	}
 
+	
 
 
+
+	public UserVo(int no, String id, String name) {
+		super();
+		this.no = no;
+		this.id = id;
+		this.name = name;
+	}
 
 
 	public UserVo(String id, String pw, String name, String gender) {
