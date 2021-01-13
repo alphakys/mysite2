@@ -67,11 +67,10 @@ public class UserController extends HttpServlet {
 			}
 			
 			//로그인  상태에서 로그인 시도시
-			else if(session.
-					!=null) {
-			
-				WebUtil.redirect("/mysite2/main", response);
-			}
+		//	else if(request.getSession(false).getId()!=null) {
+		//		System.out.println(request.getSession(false).getId());
+		//		WebUtil.redirect("/mysite2/main", response);
+		//	}
 			
 			//로그인 시도시
 			else {
@@ -118,6 +117,7 @@ public class UserController extends HttpServlet {
 		
 		else if("logout".equals(action)) {
 			
+			session = request.getSession();
 			
 			session.removeAttribute("authUser");
 			session.invalidate();
@@ -137,7 +137,11 @@ public class UserController extends HttpServlet {
 		
 		else if("modify".equals(action)) {
 			
+			//세션에서 바로 getAttribute으로 정보 불러와 no값을 가져올 수 있지 않을까 생각 그러나 
+			//이미 modiform에서 불렀기 때문에 form에서 no 넘겨주는 것으로 일단 선택
+			//시간 된다면 바로 getAttribute으로 불러서 사용해보는것 시도
 			int no = Integer.parseInt(request.getParameter("no"));
+			//----------------------------------------------------
 			String password = request.getParameter("password");
 			String name = request.getParameter("uname");
 			String gender = request.getParameter("gender");
