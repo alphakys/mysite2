@@ -4,7 +4,7 @@
 
 <% 
 
-UserVo uv = (UserVo)request.getAttribute("modiUser");
+UserVo uv = (UserVo)request.getAttribute("authUser");
 
 %>
 <!DOCTYPE html>

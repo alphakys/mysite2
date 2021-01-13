@@ -57,6 +57,7 @@ public class UserController extends HttpServlet {
 		
 		else if("loginForm".equals(action)) {
 			
+			//집중하자 forward는 주소값 그대로 파일로 보낸다 속성값 넣을 필요가 없다!!!!!!!!!!!!!!!!!!!!!!
 				WebUtil.forward("/WEB-INF/views/user/loginForm.jsp", request, response);
 				
 		}
@@ -114,13 +115,13 @@ public class UserController extends HttpServlet {
 			session = request.getSession();
 			
 			//로그인 한 회원의 세션에서 회원 no 가져오기
-			UserVo authUser = (UserVo)session.getAttribute("authUser");
+			UserVo uv = (UserVo)session.getAttribute("authUser");
 			
 			//회원의 no를 통해서 value에 넣을 값들 받아오기 value에 값들을 넣어줘야 한다면 이 방법 선택 몰라서 전 방법 선택
 			//modiForm에 뿌릴 회원 정보 담은 user get
-			UserVo modiUser = ud.getUser(authUser.getNo());
+			UserVo authUser = ud.getUser(uv.getNo());
 			
-			request.setAttribute("modiUser", modiUser);
+			request.setAttribute("authUser", authUser);
 			
 			WebUtil.forward("/WEB-INF/views/user/modifyForm.jsp", request, response);
 		}

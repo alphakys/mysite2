@@ -56,8 +56,9 @@ try{
 						
 							<span class="bold">안녕하세요!!<br>
 							
-							<%if(uv!=null){ %>
-							uv.getName()의
+							<% if(uv!=null){ %>
+							<%=uv.getName()%>의
+							
 							<%} %>
 							 MySite에 오신 것을 환영합니다.<br>
 							<br>
