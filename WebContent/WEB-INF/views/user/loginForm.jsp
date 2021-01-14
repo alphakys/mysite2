@@ -1,18 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<% 
-
-String result = request.getParameter("result");
-
-try{
-	result = request.getParameter("result");			
-}
-catch(NullPointerException e){
-	 result = null;
- }
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
-%>
 <!DOCTYPE html>
 
 
@@ -38,14 +27,16 @@ catch(NullPointerException e){
 	
 	</script>
 	
-	<%if("fail".equals(result)){ %>
-		
-		<script>
-			fail();
-			
-		</script>
 	
-	<%} %>
+		<c:if test="${param.result eq 'fail'}">
+		
+			<script>
+				
+				fail();
+				
+			</script>
+		
+		</c:if>
 	
 	
 	</head>
@@ -58,7 +49,7 @@ catch(NullPointerException e){
 	
 			<!-- header and navi -->
 			
-			<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+			<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 	
 			<div id="aside">
 				<h2>회원</h2>
@@ -122,7 +113,7 @@ catch(NullPointerException e){
 			<div class="clear"></div>
 	
 			<!-- //footer -->
-			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+			<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 	
 		</div>
 		<!-- //wrap -->

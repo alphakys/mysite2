@@ -1,15 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "java.util.List" %>
 <%@ page import = "com.javaex.vo.GuestVo" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
-<% 
-
-List<GuestVo> gList = (List<GuestVo>)request.getAttribute("guestList");
-
-
-
-%>
 
 <!DOCTYPE html>
 
@@ -35,7 +29,7 @@ List<GuestVo> gList = (List<GuestVo>)request.getAttribute("guestList");
 	
 			<!-- header and navi -->
 			
-			<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+			<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 	
 			<div id="aside">
 				<h2>방명록</h2>
@@ -102,31 +96,31 @@ List<GuestVo> gList = (List<GuestVo>)request.getAttribute("guestList");
 						
 					</form>	
 					
+					<c:forEach items="${guestList}" var="list" >
 					
-					<% for(int i=0; i<gList.size(); i++){ %>
+						<table class="guestRead">
+							
+							<colgroup>
+								<col style="width: 10%;">
+								<col style="width: 40%;">
+								<col style="width: 40%;">
+								<col style="width: 10%;">
+							</colgroup>
+							
+							<tr>
+								<td>${list.no}</td>
+								<td>${list.name}</td>
+								<td>${list.date}</td>
+								<td><a href="/mysite2/guest?action=deleteForm&no=${list.no}">[삭제]</a></td>
+							</tr>
+							
+							<tr>
+								<td colspan=4 class="text-left">${list.content}</td>
+							</tr>
+							
+						</table>
 					
-					<table class="guestRead">
-						
-						<colgroup>
-							<col style="width: 10%;">
-							<col style="width: 40%;">
-							<col style="width: 40%;">
-							<col style="width: 10%;">
-						</colgroup>
-						
-						<tr>
-							<td><%=gList.get(i).no%></td>
-							<td><%=gList.get(i).name%></td>
-							<td><%=gList.get(i).date%></td>
-							<td><a href="/mysite2/guest?action=deleteForm&no=<%=gList.get(i).no%>">[삭제]</a></td>
-						</tr>
-						
-						<tr>
-							<td colspan=4 class="text-left"><%=gList.get(i).content%></td>
-						</tr>
-						
-					</table>
-					<%} %>
+					</c:forEach>
 					
 					<!-- //guestRead -->
 	
@@ -139,7 +133,7 @@ List<GuestVo> gList = (List<GuestVo>)request.getAttribute("guestList");
 			
 			
 			<!-- //footer -->
-			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+			<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 	
 	
 	

@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "com.javaex.vo.UserVo" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
-<% 
-
-UserVo uv = (UserVo)request.getAttribute("authUser");
-
-%>
 <!DOCTYPE html>
 
 <html>
@@ -28,7 +24,7 @@ UserVo uv = (UserVo)request.getAttribute("authUser");
 	
 			<!-- header and navi -->
 			
-			<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+			<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 	
 			<div id="aside">
 				<h2>회원</h2>
@@ -61,24 +57,24 @@ UserVo uv = (UserVo)request.getAttribute("authUser");
 					
 						<form action="/mysite2/user" method="get">
 							<input type="hidden" name = "action" value="modify">
-							<input type="hidden" name = "no" value = "<%=uv.getNo()%>">
+							<input type="hidden" name = "no" value = "${authUser.no}">
 							
 							<!-- 아이디 -->
 							<div class="form-group">
 								<label class="form-text" for="input-uid">아이디</label> 
-								<span class="text-large bold"><%=uv.getId() %></span>
+								<span class="text-large bold">${authUser.id}</span>
 							</div>
 	
 							<!-- 비밀번호 -->
 							<div class="form-group">
 								<label class="form-text" for="input-pass">패스워드</label> 
-								<input type="password" id="input-pass" name="password" value="<%=uv.getPw() %>" placeholder="비밀번호를 입력하세요"	>
+								<input type="password" id="input-pass" name="password" value="${authUser.pw}" placeholder="비밀번호를 입력하세요"	>
 							</div>
 	
 							<!-- 이름 -->
 							<div class="form-group">
 								<label class="form-text" for="input-name">이름</label> 
-								<input type="text" id="input-name" name="uname" value="<%=uv.getName()%>" placeholder="이름을 입력하세요">
+								<input type="text" id="input-name" name="uname" value="${authUser.name}" placeholder="이름을 입력하세요">
 							</div>
 	
 							<!-- 성별 -->
@@ -86,20 +82,34 @@ UserVo uv = (UserVo)request.getAttribute("authUser");
 								<span class="form-text">성별</span> 
 								
 								
-								<label for="rdo-male">남</label> 
-								<input type="radio" id="rdo-male" name="gender" value="male" 
 								
-								<% if("male".equals(uv.getGender())){ %>
-								checked="checked" <% }%>> 
+								
+								
+								<c:if test="${authUser.gender eq 'male'}">
+									<label for="rdo-male">남</label> 
+									<input type="radio" id="rdo-male" name="gender" value="male" checked="checked">
+									<label for="rdo-female">여</label>
+									<input type="radio" id="rdo-female" name="gender" value="female" >
+									
+								</c:if> 
 								 
-								 
 								
 								
-								<label for="rdo-female">여</label> 
-								<input type="radio" id="rdo-female" name="gender" value="female"
 								
-								<% if("female".equals(uv.getGender())){ %>
-								checked="checked" <% }%>> 
+								
+								
+								<c:if test="${authUser.gender eq 'female'}"> 
+									<label for="rdo-male">남</label>
+									<input type="radio" id="rdo-male" name="gender" value="male">
+									<label for="rdo-female">여</label>
+									<input type="radio" id="rdo-female" name="gender" value="female" checked="checked">
+									
+								</c:if> 
+
+								
+								
+								
+								
 								 
 	
 							</div>
@@ -121,7 +131,7 @@ UserVo uv = (UserVo)request.getAttribute("authUser");
 			<div class="clear"></div>
 			
 			<!-- //footer -->
-			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+			<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 			
 		</div>
 		<!-- //wrap -->

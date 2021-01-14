@@ -24,10 +24,10 @@ public class UserController extends HttpServlet {
 		String action = request.getParameter("action");
 		
 		//Dao 인스턴스 생성
-		UserDao ud = new UserDao();
+		UserDao ud;
 		
 		//세션 인스턴스 생성
-		HttpSession session = null;
+		HttpSession session;
 		
 		if("joinForm".equals(action)) {
 			
@@ -45,7 +45,7 @@ public class UserController extends HttpServlet {
 			UserVo uv = new UserVo(id, pw, name, gender);
 
 			//Dao에 insert
-
+			ud = new UserDao();
 			ud.insert(uv);
 			
 			WebUtil.forward("/WEB-INF/views/user/joinOk.jsp", request, response);
@@ -67,7 +67,8 @@ public class UserController extends HttpServlet {
 			
 			String id = request.getParameter("uid");
 			String password = request.getParameter("pw");
-				
+			
+			ud = new UserDao();
 			UserVo authUser = ud.getUser(id, password);
 			
 				if(authUser==null) {
@@ -119,6 +120,7 @@ public class UserController extends HttpServlet {
 			
 			//회원의 no를 통해서 value에 넣을 값들 받아오기 value에 값들을 넣어줘야 한다면 이 방법 선택 몰라서 전 방법 선택
 			//modiForm에 뿌릴 회원 정보 담은 user get
+			ud = new UserDao();
 			UserVo authUser = ud.getUser(uv.getNo());
 			
 			request.setAttribute("authUser", authUser);
@@ -138,7 +140,7 @@ public class UserController extends HttpServlet {
 			String gender = request.getParameter("gender");
 
 			UserVo uv = new UserVo(no, password, name, gender);
-			
+			ud = new UserDao();
 			int result = ud.update(uv);
 			
 			if(result==1) {

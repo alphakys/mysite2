@@ -1,14 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import = "com.javaex.vo.BoardVo" %>
 <%@ page import = "java.util.List" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
 
-<% 
 
-List<BoardVo> bList = (List<BoardVo>)request.getAttribute("bList");
-
-%>
 
 <!DOCTYPE html>
 
@@ -89,21 +86,22 @@ List<BoardVo> bList = (List<BoardVo>)request.getAttribute("bList");
 								<th>관리</th>
 							</tr>
 						</thead>
-						<%for(int i=0;i<bList.size();i++){ %>
+						
+						<c:forEach items="${bList }" var="bv" varStatus="status">
 						<tbody>
 						
 							<tr>
-								<td><%=bList.get(i).getNo()%></td>
-								<td class="text-left"><a href="#"><%=bList.get(i).getTitle()%></a></td>
-								<td><%=bList.get(i).getName()%></td>
+								<td><c:out value="${bv.no}" /></td>
+								<td class="text-left"><a href="#"><c:out value="${bv.title }" /></a></td>
+								<td><c:out value="${bv.name}" /></td>
 								<td>1232</td>
-								<td><%=bList.get(i).getDate()%></td>
+								<td><c:out value="${bv.content }"/></td>
 								<td><a href="">[삭제]</a></td>
 							</tr>
 							
 						
 						</tbody>
-						<%} %>
+						</c:forEach>
 						
 						
 					</table>

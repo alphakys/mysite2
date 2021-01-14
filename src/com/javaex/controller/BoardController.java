@@ -22,6 +22,7 @@ public class BoardController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String action = request.getParameter("action");
+		
 		HttpSession session;
 		BoardDao bd;
 		
@@ -43,14 +44,18 @@ public class BoardController extends HttpServlet {
 			session = request.getSession();
 			UserVo authUser = (UserVo)session.getAttribute("authUser");
 			
-			String name = authUser.getName();
+			try {
+				String name = authUser.getName();
+				
+				BoardVo bv = new BoardVo(name, title, content);
+				
+				bd = new BoardDao();
+			} catch (NullPointerException e) {
+				
+				WebUtil.redirect("/mysite2/board?action=writeForm&result=login", response);
+			}
 			
-			BoardVo bv = new BoardVo(name, title, content);
 			
-			bd = new BoardDao();
-			
-			
-			System.out.println(bd.insert(bv));
 			WebUtil.redirect("/mysite2/board", response);
 		}
 		

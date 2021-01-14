@@ -65,8 +65,8 @@ public class GuestController extends HttpServlet {
 			}
 			else {
 				request.setAttribute("no", no);
-				request.setAttribute("result", result);
-				WebUtil.forward("/WEB-INF/views/guestbook/deleteForm.jsp", request, response);
+				
+				WebUtil.redirect("/mysite2/guest?action=deleteForm&result=fail&no="+request.getParameter("no"), response);
 			}
 		}
 		

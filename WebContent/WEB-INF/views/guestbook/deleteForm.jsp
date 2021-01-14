@@ -1,17 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%
-int no = Integer.parseInt(request.getParameter("no"));
 
-int result;
-
-try{
-	result = (int)request.getAttribute("result");
-}
-catch(NullPointerException e){
-	result = 1;
-}
-%>
 
 <!DOCTYPE html>
 
@@ -35,15 +25,17 @@ catch(NullPointerException e){
 		</script>
 		
 		
-		<%if(result==0){ %>
-			
+		
+		<c:if test="${param.result eq 'fail'}">
+		
 			<script>
 				wrong();
 			
 			</script>
 			
+		</c:if>		
 	
-		<%} %>
+	
 		
 		
 	</head>
@@ -57,7 +49,7 @@ catch(NullPointerException e){
 	
 			<!-- header and navi -->
 			
-			<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+			<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 	
 	
 	
@@ -108,7 +100,7 @@ catch(NullPointerException e){
 						</table>
 						
 						<input type='hidden' name="action" value="delete">
-						<input type='hidden' name="no" value="<%=no%>">
+						<input type='hidden' name="no" value="${param.no}">
 						
 					</form>
 					
@@ -119,7 +111,7 @@ catch(NullPointerException e){
 			<div class="clear"></div>
 			
 			<!-- //footer -->
-			<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+			<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 	
 		</div>
 		<!-- //wrap -->
