@@ -115,34 +115,91 @@
 				</table>
 		
 					<div id="paging">
+					
 						<ul>
 							
-							<li><a href="/mysite2/board?page=${param.page-1 }">◀</a></li>
-							
+							<!--   ◀이전 페이지 -->
 							<c:choose>
+							 	<c:when test="${param.page eq 1}">
 							
+									<li><a href="/mysite2/board?page=${param.page }">◀</a></li>
+							
+								</c:when>
+								
+								<c:otherwise>
+								
+									<li><a href="/mysite2/board?page=${param.page -1 }">◀</a></li>
+									
+								</c:otherwise>
+							</c:choose>
+							
+							<!--◀ 이전 페이지  -->
+							
+							
+							<!-- <<본 페이지>> --> 
+							<!-- active 기능 구현 -->
+							<c:choose>
+								
 								<c:when test="${bList.size()%10 eq 0}">
 									
 									<c:forEach var="page" begin="1" end="${bList.size()/10 }">
-							
-										<li><a href="/mysite2/board?page=${page }">${page }</a></li>
-								
+										
+										<c:choose>
+											<c:when test="${param.page eq page }">
+												<li class="active">
+													<a href= "/mysite2/board?page=${page }">${page }</a> 
+												</li>
+											</c:when>
+										
+											<c:otherwise>
+												<li>
+													<a href= "/mysite2/board?page=${page }">${page }</a> 
+												</li>									
+											</c:otherwise>
+										</c:choose>												
+													
 									</c:forEach>
 								
 								</c:when>
+								
 								<c:otherwise>
 									
 									<c:forEach var="page" begin="1" end="${bList.size()/10 +1}">
 							
-										<li><a href="/mysite2/board?page=${page }">${page }</a></li>
-								
+										<c:choose>
+										
+											<c:when test="${param.page eq page }">
+												<li class="active">
+													<a href= "/mysite2/board?page=${page }">${page }</a> 
+												</li>
+											</c:when>
+										
+											<c:otherwise>
+												<li>
+													<a href= "/mysite2/board?page=${page }">${page }</a> 
+												</li>									
+											</c:otherwise>
+											
+										</c:choose>			
+										
 									</c:forEach>
 								
 								</c:otherwise>
+								
 							</c:choose>
 							
+							
+							<!-- <<본 페이지>> -->
+							
+							
+							
+							<!--▶ 다음 페이지 -->
 							<li><a href="/mysite2/board?page=${param.page+1 }">▶</a></li>
 						
+						
+						
+						
+							<!--▶ 다음 페이지 -->
 			
 						</ul>
 						
@@ -150,6 +207,8 @@
 						<div class="clear"></div>
 					</div>
 					
+					
+					<!-- 로그인시 글쓰기 가능 기능 -->
 					<c:choose>
 					
 						<c:when test="${sessionScope.authUser.no eq bv.userNo}">
