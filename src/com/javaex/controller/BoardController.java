@@ -101,9 +101,14 @@ public class BoardController extends HttpServlet {
 		
 		else if("modify".equals(action)) {
 			
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			int no = Integer.parseInt(request.getParameter("no"));
 			
+			bd = new BoardDao();
+			bd.update(no, title, content);
 			
-			
+			WebUtil.redirect("/mysite2/board", response);
 			
 		}
 		

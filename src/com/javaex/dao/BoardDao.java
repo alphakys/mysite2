@@ -243,6 +243,39 @@ public class BoardDao {
 		}
 		
 		
+		public int update(int no, String title, String content ){
+			
+			getConnection();
+			
+			try {
+			    // 3. SQL문 준비 / 바인딩 / 실행
+			    String query = "update board ";
+			    	   query += "set title = ? ";
+			    	   query += "	 content = ? ";
+			    	   query += "where no = ? ";
+		
+			    pstmt = conn.prepareStatement(query);	   
+			    pstmt.setString(1, title);
+			    pstmt.setString(2, content);
+			    pstmt.setInt(3, no);
+			    
+			    
+			    // 4. 결과처리
+			   count = pstmt.executeUpdate();
+			   
+			   conn.commit();
+		
+			}  catch (SQLException e) {
+			    System.out.println("error:" + e);
+			} 
+			
+			close();
+			
+			return count;
+		}
+		
+		
+		
 		public int delete(int no) {
 			
 			getConnection();

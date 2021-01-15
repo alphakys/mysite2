@@ -1,14 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="/mysite2/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="/mysite2/assets/css/board.css" rel="stylesheet" type="text/css">
-
-</head>
+	<html>
+	
+	<head>
+	
+		<meta charset="UTF-8">
+		
+		<title>Insert title here</title>
+		
+		<link href="/mysite2/assets/css/mysite.css" rel="stylesheet" type="text/css">
+		<link href="/mysite2/assets/css/board.css" rel="stylesheet" type="text/css">
+		
+	</head>
 
 
 <body>
@@ -45,6 +49,7 @@
 				
 					<form action="/mysite2/board" method="get">
 						<input type = "hidden" name = "action" value="modify">
+						<input type = "hidden" name = "no" value="${param.no }">
 						
 						<!-- 작성자 -->
 						<div class="form-group">
