@@ -66,7 +66,7 @@
 				<div id="board">
 					<div id="writeForm">
 					
-						<form action="/mysite2/board" method="get">
+						<form action="/mysite2/board" method="post">
 							<input type="hidden" name="action" value="insert">
 							
 							<!-- 제목 -->

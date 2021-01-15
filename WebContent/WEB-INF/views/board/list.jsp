@@ -82,7 +82,12 @@
 							</tr>
 						</thead>
 						
-						<c:forEach items="${bList}" var="bv" >
+						
+					
+							
+								
+					<c:forEach items="${bList}" var="bv" begin="${(param.page-1) *10}" end="${(param.page*10)-1 }" >
+						
 						<tbody>
 						
 							<tr>
@@ -99,29 +104,38 @@
 								
 									</c:if>
 								</td>
+								
 							</tr>
-							
-						
+				
 						</tbody>
-						</c:forEach>
 						
-						
-					</table>
+					</c:forEach>
+				
+	
+				</table>
 		
 					<div id="paging">
 						<ul>
+							
 							<li><a href="">◀</a></li>
-							<li><a href="">1</a></li>
-							<li><a href="">2</a></li>
-							<li><a href="">3</a></li>
-							<li><a href="">4</a></li>
-							<li class="active"><a href="">5</a></li>
-							<li><a href="">6</a></li>
-							<li><a href="">7</a></li>
-							<li><a href="">8</a></li>
-							<li><a href="">9</a></li>
-							<li><a href="">10</a></li>
+							
+							<c:choose>
+							
+								<c:when test="${bList.size()%10 >0}">
+									
+									<c:forEach var="page" begin="1" end="${bList.size()/10+1 }">
+							
+										<li><a href="/mysite2/board?page=${page }">${page }</a></li>
+								
+									</c:forEach>
+								
+								</c:when>
+							
+							</c:choose>
+							
 							<li><a href="">▶</a></li>
+						
+			
 						</ul>
 						
 						

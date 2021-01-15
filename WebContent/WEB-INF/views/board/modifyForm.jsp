@@ -47,7 +47,7 @@
 			
 				<div id="modifyForm">
 				
-					<form action="/mysite2/board" method="get">
+					<form action="/mysite2/board" method="post">
 						<input type = "hidden" name = "action" value="modify">
 						<input type = "hidden" name = "no" value="${param.no }">
 						

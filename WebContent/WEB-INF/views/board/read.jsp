@@ -49,7 +49,7 @@
 
 			<div id="board">
 				<div id="read">
-					<form action="#" method="get">
+					<form action="#" method="post">
 						<!-- 작성자 -->
 						
 						<div class="form-group">
