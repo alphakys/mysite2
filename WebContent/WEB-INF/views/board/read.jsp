@@ -29,7 +29,7 @@
 	
 			<!-- //aside -->
 	
-			<c:import url="/WEB-INF/views/include/aside.jsp"></c:import>
+			<c:import url="/WEB-INF/views/include/asideBoard.jsp"></c:import>
 
 
 		<div id="content">
@@ -99,7 +99,7 @@
 						</c:if>
 						
 						
-						<a id="btn_modify" href="/mysite2/board">목록</a>
+						<a id="btn_modify" href="/mysite2/board?page=1">목록</a>
 						
 					</form>
 	                <!-- //form -->

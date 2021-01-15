@@ -43,7 +43,7 @@
 				<!-- //aside -->
 	
 	
-				<c:import url="/WEB-INF/views/include/aside.jsp"></c:import>
+				<c:import url="/WEB-INF/views/include/asideBoard.jsp"></c:import>
 	
 	
 	

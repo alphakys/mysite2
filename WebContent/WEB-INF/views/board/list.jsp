@@ -30,7 +30,7 @@
 			<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 
 
-			<c:import url="/WEB-INF/views/include/aside.jsp"></c:import>
+			<c:import url="/WEB-INF/views/include/asideBoard.jsp"></c:import>
 
 
 
@@ -117,23 +117,31 @@
 					<div id="paging">
 						<ul>
 							
-							<li><a href="">◀</a></li>
+							<li><a href="/mysite2/board?page=${param.page-1 }">◀</a></li>
 							
 							<c:choose>
 							
-								<c:when test="${bList.size()%10 >0}">
+								<c:when test="${bList.size()%10 eq 0}">
 									
-									<c:forEach var="page" begin="1" end="${bList.size()/10+1 }">
+									<c:forEach var="page" begin="1" end="${bList.size()/10 }">
 							
 										<li><a href="/mysite2/board?page=${page }">${page }</a></li>
 								
 									</c:forEach>
 								
 								</c:when>
+								<c:otherwise>
+									
+									<c:forEach var="page" begin="1" end="${bList.size()/10 +1}">
 							
+										<li><a href="/mysite2/board?page=${page }">${page }</a></li>
+								
+									</c:forEach>
+								
+								</c:otherwise>
 							</c:choose>
 							
-							<li><a href="">▶</a></li>
+							<li><a href="/mysite2/board?page=${param.page+1 }">▶</a></li>
 						
 			
 						</ul>

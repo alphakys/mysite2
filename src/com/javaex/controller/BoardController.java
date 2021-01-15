@@ -55,7 +55,7 @@ public class BoardController extends HttpServlet {
 				bd.insert(bv);
 				
 			
-			WebUtil.redirect("/mysite2/board", response);
+			WebUtil.redirect("/mysite2/board?page=1", response);
 		}
 		
 		
@@ -106,9 +106,10 @@ public class BoardController extends HttpServlet {
 			int no = Integer.parseInt(request.getParameter("no"));
 			
 			bd = new BoardDao();
+			
 			bd.update(no, title, content);
 			
-			WebUtil.redirect("/mysite2/board", response);
+			WebUtil.redirect("/mysite2/board?page=1", response);
 			
 		}
 		
@@ -119,7 +120,7 @@ public class BoardController extends HttpServlet {
 			bd = new BoardDao();
 			bd.delete(no);
 			
-			WebUtil.redirect("/mysite2/board", response);
+			WebUtil.redirect("/mysite2/board?page=1", response);
 		}
 		
 		

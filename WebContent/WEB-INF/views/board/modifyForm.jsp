@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 	<html>
 	
@@ -7,7 +8,7 @@
 	
 		<meta charset="UTF-8">
 		
-		<title>Insert title here</title>
+		<title>modifyForm</title>
 		
 		<link href="/mysite2/assets/css/mysite.css" rel="stylesheet" type="text/css">
 		<link href="/mysite2/assets/css/board.css" rel="stylesheet" type="text/css">
@@ -24,7 +25,7 @@
 			
 		
 			<!-- //aside -->
-			<c:import url="/WEB-INF/views/include/aside.jsp"></c:import>
+			<c:import url="/WEB-INF/views/include/asideBoard.jsp"></c:import>
 		
 		
 
@@ -82,7 +83,7 @@
 						<!-- 내용 -->
 						<div class="form-group">
 							
-							<textarea id="txt-content">${post.content }</textarea>		
+							<textarea id="txt-content" name="content">${post.content}</textarea>		
 							
 						</div>
 						

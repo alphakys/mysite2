@@ -2,7 +2,8 @@ package com.javaex.vo;
 
 public class BoardVo {
 	
-	//필드
+	//<<필드>>
+	
 	private int no;
 	private String title;
 	private String content;
@@ -14,11 +15,11 @@ public class BoardVo {
 	
 	
 	
-	//생성자
+	//<<생성자>>
 	
 	
 	
-	
+	//for 리스트
 	public BoardVo(int no, String title, String name, int hit, String date, int userNo) {
 		super();
 		this.no = no;
@@ -29,59 +30,33 @@ public class BoardVo {
 		this.userNo = userNo;
 	}
 	
-		public BoardVo(int no, String title, int hit, String date, int userNo, String name) {
-		super();
-		this.no = no;
-		this.title = title;
-		this.hit = hit;
-		this.date = date;
-		this.userNo = userNo;
-		this.name = name;
-	}
-
-		public BoardVo(int no, String title, String content, String date, int userNo) {
-		super();
-		this.no = no;
-		this.title = title;
-		this.content = content;
-		this.date = date;
-		this.userNo = userNo;
-	}
+	
 
 	
-		public BoardVo(int no, String title, String name, int hit, String date) {
-			super();
-			this.no = no;
-			this.title = title;
-			this.name = name;
-			this.hit = hit;
-			this.date = date;
-		}
-	
-		
-		
-	public BoardVo(String name, int hit, String date, String title, String content) {
-			super();
-			this.title = title;
-			this.hit = hit;
-			this.date = date;
-			this.name = name;
-			this.content = content;
-		}
-
-	
-	
+	//for insert
 	public BoardVo(int userNo, String title, String content) {
 			super();
 			this.title = title;
 			this.content = content;
 			this.userNo = userNo;
 		}
-
+	
+	
+	//for getPost
+	public BoardVo(String name, int hit, String date, String title, String content, int userNo) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.hit = hit;
+		this.date = date;
+		this.userNo = userNo;
+		this.name = name;
+	}
+	
+	
+	
 	//Getter/Setter
 	
-
-
 
 
 	public int getNo() {
@@ -129,16 +104,9 @@ public class BoardVo {
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
+	
+	
 
-	public BoardVo(String name, int hit, String date, String title, String content, int userNo) {
-		super();
-		this.title = title;
-		this.content = content;
-		this.hit = hit;
-		this.date = date;
-		this.userNo = userNo;
-		this.name = name;
-	}
 	
 	
 	

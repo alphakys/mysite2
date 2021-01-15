@@ -198,7 +198,7 @@ public class BoardDao {
 			    	bv = new BoardVo(name, hit, date, title, content, userNo );
 			    }
 			   
-			    
+			    conn.commit();
 			    
 			}  catch (SQLException e) {
 			    System.out.println("error:" + e);
@@ -250,7 +250,7 @@ public class BoardDao {
 			try {
 			    // 3. SQL문 준비 / 바인딩 / 실행
 			    String query = "update board ";
-			    	   query += "set title = ? ";
+			    	   query += "set title = ? , ";
 			    	   query += "	 content = ? ";
 			    	   query += "where no = ? ";
 		
