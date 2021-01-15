@@ -1,17 +1,24 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
 <!DOCTYPE html>
+
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link href="/mysite2/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="/mysite2/assets/css/board.css" rel="stylesheet" type="text/css">
+	<head>
+	
+	<meta charset="UTF-8">
+	
+	<title>Read</title>
+	
+	<link href="/mysite2/assets/css/mysite.css" rel="stylesheet" type="text/css">
+	<link href="/mysite2/assets/css/board.css" rel="stylesheet" type="text/css">
 
 </head>
 
 
 <body>
+
 	<div id="wrap">
 
 			<!-- header and navi -->
@@ -19,14 +26,11 @@
 			<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 			
 			
-		<div id="aside">
-			<h2>게시판</h2>
-			<ul>
-				<li><a href="">일반게시판</a></li>
-				<li><a href="">댓글게시판</a></li>
-			</ul>
-		</div>
-		<!-- //aside -->
+	
+			<!-- //aside -->
+	
+			<c:import url="/WEB-INF/views/include/aside.jsp"></c:import>
+
 
 		<div id="content">
 
@@ -47,45 +51,55 @@
 				<div id="read">
 					<form action="#" method="get">
 						<!-- 작성자 -->
+						
 						<div class="form-group">
+						
 							<span class="form-text">작성자</span>
-							<span class="form-value">정우성</span>
+							<span class="form-value">${post.name }</span>
+						
 						</div>
 						
 						<!-- 조회수 -->
 						<div class="form-group">
+						
 							<span class="form-text">조회수</span>
-							<span class="form-value">123</span>
+							<span class="form-value">${post.hit}</span>
+						
 						</div>
 						
 						<!-- 작성일 -->
 						<div class="form-group">
+						
 							<span class="form-text">작성일</span>
-							<span class="form-value">2020-03-02</span>
+							<span class="form-value">${post.date }</span>
+							
 						</div>
 						
 						<!-- 제목 -->
 						<div class="form-group">
+						
 							<span class="form-text">제 목</span>
-							<span class="form-value">여기에는 글제목이 출력됩니다.</span>
+							<span class="form-value">${post.title }</span>
+							
 						</div>
 					
 						<!-- 내용 -->
 						<div id="txt-content">
 							<span class="form-value" >
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
-								여기에는 본문내용이 출력됩니다.<br>
+								
+								${post.content }
+							
 							</span>
 						</div>
 						
-						<a id="btn_modify" href="">수정</a>
-						<a id="btn_modify" href="">목록</a>
+						<c:if test="${sessionScope.authUser.no eq post.userNo}">
+									
+								<a id="btn_modify" href="/mysite2/board?action=modifyForm&no=${param.no }">수정</a>
+								
+						</c:if>
+						
+						
+						<a id="btn_modify" href="/mysite2/board">목록</a>
 						
 					</form>
 	                <!-- //form -->

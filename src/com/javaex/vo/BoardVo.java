@@ -4,109 +4,141 @@ public class BoardVo {
 	
 	//필드
 	private int no;
-	private String name;
 	private String title;
 	private String content;
+	private int hit;
 	private String date;
+	private int userNo;
+	// users에서 가져온 이름(게시판 리스트에 보여줄 userName)
+	private String name;
 	
 	
 	
 	//생성자
-	public BoardVo(int no, String name, String title, String content, String date) {
+	
+	
+	
+	
+	public BoardVo(int no, String title, String name, int hit, String date, int userNo) {
 		super();
 		this.no = no;
+		this.title = title;
 		this.name = name;
+		this.hit = hit;
+		this.date = date;
+		this.userNo = userNo;
+	}
+	
+		public BoardVo(int no, String title, int hit, String date, int userNo, String name) {
+		super();
+		this.no = no;
+		this.title = title;
+		this.hit = hit;
+		this.date = date;
+		this.userNo = userNo;
+		this.name = name;
+	}
+
+		public BoardVo(int no, String title, String content, String date, int userNo) {
+		super();
+		this.no = no;
 		this.title = title;
 		this.content = content;
 		this.date = date;
+		this.userNo = userNo;
 	}
 
+	
+		public BoardVo(int no, String title, String name, int hit, String date) {
+			super();
+			this.no = no;
+			this.title = title;
+			this.name = name;
+			this.hit = hit;
+			this.date = date;
+		}
+	
+		
+		
+	public BoardVo(String name, int hit, String date, String title, String content) {
+			super();
+			this.title = title;
+			this.hit = hit;
+			this.date = date;
+			this.name = name;
+			this.content = content;
+		}
 
-
-	public BoardVo(String name, String title, String content) {
-		super();
-		this.name = name;
-		this.title = title;
-		this.content = content;
-	}
+	
+	
+	public BoardVo(int userNo, String title, String content) {
+			super();
+			this.title = title;
+			this.content = content;
+			this.userNo = userNo;
+		}
 
 	//Getter/Setter
+	
+
+
+
 
 	public int getNo() {
 		return no;
 	}
 
-
-
-	public void setNo(int no) {
-		this.no = no;
-	}
-
-
-
 	public String getName() {
 		return name;
 	}
-
-
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
-
+	public void setNo(int no) {
+		this.no = no;
+	}
 	public String getTitle() {
 		return title;
 	}
-
-
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
-
-
 	public String getContent() {
 		return content;
 	}
-
-
-
 	public void setContent(String content) {
 		this.content = content;
 	}
-
-
-
+	public int getHit() {
+		return hit;
+	}
+	public void setHit(int hit) {
+		this.hit = hit;
+	}
 	public String getDate() {
 		return date;
 	}
-
-
-
 	public void setDate(String date) {
 		this.date = date;
 	}
-
-
-	
-	//메서드
-
-	@Override
-	public String toString() {
-		return "BoardVo [no=" + no + ", name=" + name + ", title=" + title + ", content=" + content + ", date=" + date
-				+ "]";
+	public int getUserNo() {
+		return userNo;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+	public void setUserNo(int userNo) {
+		this.userNo = userNo;
+	}
+
+	public BoardVo(String name, int hit, String date, String title, String content, int userNo) {
+		super();
+		this.title = title;
+		this.content = content;
+		this.hit = hit;
+		this.date = date;
+		this.userNo = userNo;
+		this.name = name;
+	}
 	
 	
 	

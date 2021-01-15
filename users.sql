@@ -19,12 +19,11 @@ nocache;
 
 --insert
 insert into users
-values(seq_users_no.nextval, 'alphakys', '1234', '강용수', '남');
+values(seq_users_no.nextval, 'alphakys', '1', '강용수', 'male');
 
 select *
 from users
 where password = 1234 and id = '정우성';
-
 
 
 --<<삭제 관련>>
@@ -32,11 +31,11 @@ where password = 1234 and id = '정우성';
 
 
 --시퀀스 삭제
-drop sequence seq_user_no;
-
-select *
-from users;
+drop sequence seq_users_no;
 
 --테이블 데이터 삭제
 delete users;
 
+--테이블 삭제
+
+drop table users;

@@ -24,9 +24,10 @@ public class BoardController extends HttpServlet {
 		String action = request.getParameter("action");
 		
 		HttpSession session;
+		
 		BoardDao bd;
 		
-		
+		//<글쓰기>
 		if("writeForm".equals(action)) {
 			
 			
@@ -36,6 +37,7 @@ public class BoardController extends HttpServlet {
 			
 		}
 		
+		//<게시글 등록>
 		else if("insert".equals(action)) {
 			
 			String title = request.getParameter("title");
@@ -44,23 +46,36 @@ public class BoardController extends HttpServlet {
 			session = request.getSession();
 			UserVo authUser = (UserVo)session.getAttribute("authUser");
 			
-			try {
-				String name = authUser.getName();
-				
-				BoardVo bv = new BoardVo(name, title, content);
+				int userNo = authUser.getNo();
+			
+				BoardVo bv = new BoardVo(userNo, title, content);
 				
 				bd = new BoardDao();
-			} catch (NullPointerException e) {
-				
-				WebUtil.redirect("/mysite2/board?action=writeForm&result=login", response);
-			}
 			
+				bd.insert(bv);
+				
 			
 			WebUtil.redirect("/mysite2/board", response);
 		}
 		
+		
+		//<게시글 읽기>
 		else if("read".equals(action)) {
 			
+			//게시물 번호를 받아오고 setAttri에 담을 해당 데이터 가져오기
+			int no = Integer.parseInt(request.getParameter("no"));
+			
+			bd = new BoardDao();
+			
+			BoardVo post = bd.getPost(no);
+			
+			int hit = post.getHit();
+			hit+= 1;
+			
+			post.setHit(hit);
+			bd.updateHit(no, hit);
+			
+			request.setAttribute("post", post);
 			
 			WebUtil.forward("/WEB-INF/views/board/read.jsp", request, response);
 			
@@ -71,19 +86,45 @@ public class BoardController extends HttpServlet {
 		
 		else if("modifyForm".equals(action)) {
 			
+			int no = Integer.parseInt(request.getParameter("no"));
+			
+			bd = new BoardDao();
+			
+			BoardVo post = bd.getPost(no);
+			
+			request.setAttribute("post", post);
 			
 			WebUtil.forward("/WEB-INF/views/board/modifyForm.jsp", request, response);			
 			
 			
 		}
 		
+		else if("modify".equals(action)) {
+			
+			
+			
+			
+			
+		}
+		
+		else if("delete".equals(action)) {
+			
+			int no = Integer.parseInt(request.getParameter("no"));
+			
+			bd = new BoardDao();
+			bd.delete(no);
+			
+			WebUtil.redirect("/mysite2/board", response);
+		}
+		
+		
 		else {
 			
 			bd = new BoardDao();
 			
 			request.setAttribute("bList", bd.getList());
-			WebUtil.forward("/WEB-INF/views/board/list.jsp", request, response);
 			
+			WebUtil.forward("/WEB-INF/views/board/list.jsp", request, response);
 			
 		}
 	

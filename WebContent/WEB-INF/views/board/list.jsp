@@ -1,9 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import = "com.javaex.vo.BoardVo" %>
-<%@ page import = "java.util.List" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-
 
 
 
@@ -31,16 +27,15 @@
 
 			<!-- header and navi -->
 			
-			<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+			<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 
-		<div id="aside">
-			<h2>게시판</h2>
-			<ul>
-				<li><a href="">일반게시판</a></li>
-				<li><a href="">댓글게시판</a></li>
-			</ul>
-		</div>
-		<!-- //aside -->
+
+			<c:import url="/WEB-INF/views/include/aside.jsp"></c:import>
+
+
+
+
+			<!-- content -->
 
 		<div id="content">
 
@@ -66,7 +61,7 @@
 			
 				<div id="list">
 				
-					<form action="" method="">
+					<form action="" method="post">
 						<div class="form-group text-right">
 							<input type="text">
 							<button type="submit" id=btn_search>검색</button>
@@ -87,16 +82,23 @@
 							</tr>
 						</thead>
 						
-						<c:forEach items="${bList }" var="bv" varStatus="status">
+						<c:forEach items="${bList}" var="bv" >
 						<tbody>
 						
 							<tr>
-								<td><c:out value="${bv.no}" /></td>
-								<td class="text-left"><a href="#"><c:out value="${bv.title }" /></a></td>
-								<td><c:out value="${bv.name}" /></td>
-								<td>1232</td>
-								<td><c:out value="${bv.content }"/></td>
-								<td><a href="">[삭제]</a></td>
+								<td>${bv.no }</td>
+								<td class="text-left"><a href="/mysite2/board?action=read&no=${bv.no}">${bv.title }</a></td>
+								<td>${bv.name}</td>
+								<td>${bv.hit}</td>
+								<td>${bv.date}</td>
+								
+								<td>
+									<c:if test="${sessionScope.authUser.no eq bv.userNo}">
+									
+										<a href="/mysite2/board?action=delete&no=${bv.no}">[삭제]</a>
+								
+									</c:if>
+								</td>
 							</tr>
 							
 						
@@ -126,7 +128,22 @@
 						<div class="clear"></div>
 					</div>
 					
-					<a id="btn_write" href="/mysite2/board?action=writeForm">글쓰기</a>
+					<c:choose>
+					
+						<c:when test="${sessionScope.authUser.no eq bv.userNo}">
+						
+						</c:when>
+							
+						<c:otherwise>
+							
+							<a id="btn_write" href="/mysite2/board?action=writeForm">글쓰기</a>
+						
+						</c:otherwise>
+						
+					</c:choose>
+				
+				
+				
 				
 				</div>
 				<!-- //list -->
@@ -136,7 +153,7 @@
 		<!-- //content  -->
 		<div class="clear"></div>
 
-		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- //footer -->
 		
 		
