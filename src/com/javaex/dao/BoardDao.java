@@ -127,7 +127,7 @@ public class BoardDao {
 			    	   query += "        title, ";
 			    	   query += "        u.name, ";		    
 			    	   query += "        hit, ";
-			    	   query += "        to_char(reg_date, 'yyyy-mm-dd hh24:mm'), ";
+			    	   query += "        to_char(reg_date, 'yyyy-mm-dd hh24:mi'), ";
 			    	   query += "        user_no ";
 			    	   query += "from    board b left outer join users u ";
 			    	   query += "on   	 b.user_no = u.no ";
@@ -304,8 +304,59 @@ public class BoardDao {
 		}
 		
 		
-		
-		
+		//이름으로 검색한 리스트 가져오기
+			public List<BoardVo> getList(String keyName){
+					
+					getConnection();
+					
+					bList = new ArrayList<>();
+					
+					try {
+					    // 3. SQL문 준비 / 바인딩 / 실행
+					    String query = "select   b.no, ";			   
+					    	   query += "        title, ";
+					    	   query += "        u.name, ";		    
+					    	   query += "        hit, ";
+					    	   query += "        to_char(reg_date, 'yyyy-mm-dd hh24:mm'), ";
+					    	   query += "        user_no ";
+					    	   query += "from    board b left outer join users u ";
+					    	   query += "on   	 b.user_no = u.no ";
+					    	   query += "where   u.name = ? ";
+					    	   query += "order by  no desc ";
+					    	   
+					    	   
+					    pstmt = conn.prepareStatement(query);	   
+					    rs = pstmt.executeQuery();
+					    
+					    while(rs.next()) {
+					    	
+					    	int no = rs.getInt(1);		
+					    	String title = rs.getString(2);
+					    	String name = rs.getString(3);
+					    	int hit = rs.getInt(4);
+					    	String date = rs.getString(5);
+					    	int userNo = rs.getInt(6);
+					    	
+					    	bList.add(new BoardVo(no, title, name, hit, date, userNo));
+					    }
+					   
+					    
+					    
+					}  catch (SQLException e) {
+					    System.out.println("error:" + e);
+					} 
+					
+					
+					close();
+					
+					return bList;
+				}
+			
+			
+				
+				
+				
+				
 		
 		
 	

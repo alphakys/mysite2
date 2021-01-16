@@ -124,6 +124,19 @@ public class BoardController extends HttpServlet {
 		}
 		
 		
+		else if("search".equals(action)) {
+			
+			String keyName = request.getParameter("keyword");
+			bd = new BoardDao();
+			
+			// 이름을 keyword로 한 검색 리스트 setAttri
+			request.setAttribute("bList", bd.getList(keyName));
+			request.setAttribute("page", 1);
+			
+			WebUtil.forward("/WEB-INF/views/board/list.jsp", request, response);
+			
+		}
+		
 		else {
 			
 			bd = new BoardDao();

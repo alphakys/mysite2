@@ -61,11 +61,14 @@
 			
 				<div id="list">
 				
-					<form action="" method="post">
+					<form action="/mysite2/board" method="post">
+						<input type="hidden" name="action" value="search">
+					
 						<div class="form-group text-right">
-							<input type="text">
+							<input type="text" name="keyword">
 							<button type="submit" id=btn_search>검색</button>
 						</div>
+						
 					</form>
 					
 					
@@ -81,9 +84,6 @@
 								<th>관리</th>
 							</tr>
 						</thead>
-						
-						
-					
 							
 								
 					<c:forEach items="${bList}" var="bv" begin="${(param.page-1) *10}" end="${(param.page*10)-1 }" >
@@ -122,13 +122,13 @@
 							<c:choose>
 							 	<c:when test="${param.page eq 1}">
 							
-									<li><a href="/mysite2/board?page=${param.page }">◀</a></li>
+									<li><a href="/mysite2/board?page=${param.page}">◀</a></li>
 							
 								</c:when>
 								
 								<c:otherwise>
 								
-									<li><a href="/mysite2/board?page=${param.page -1 }">◀</a></li>
+									<li><a href="/mysite2/board?page=${param.page -1}">◀</a></li>
 									
 								</c:otherwise>
 							</c:choose>
@@ -147,13 +147,13 @@
 										<c:choose>
 											<c:when test="${param.page eq page }">
 												<li class="active">
-													<a href= "/mysite2/board?page=${page }">${page }</a> 
+													<a href= "/mysite2/board?page=${page }">${page}</a> 
 												</li>
 											</c:when>
 										
 											<c:otherwise>
 												<li>
-													<a href= "/mysite2/board?page=${page }">${page }</a> 
+													<a href= "/mysite2/board?page=${page }">${page}</a> 
 												</li>									
 											</c:otherwise>
 										</c:choose>												
@@ -168,15 +168,15 @@
 							
 										<c:choose>
 										
-											<c:when test="${param.page eq page }">
+											<c:when test="${param.page eq page}">
 												<li class="active">
-													<a href= "/mysite2/board?page=${page }">${page }</a> 
+													<a href= "/mysite2/board?page=${page}">${page}</a> 
 												</li>
 											</c:when>
 										
 											<c:otherwise>
 												<li>
-													<a href= "/mysite2/board?page=${page }">${page }</a> 
+													<a href= "/mysite2/board?page=${page}">${page}</a> 
 												</li>									
 											</c:otherwise>
 											

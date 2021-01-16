@@ -26,6 +26,21 @@ on   b.user_no = u.no
 where b.no = '3';
 
 
+--이름으로 검색하기
+select b.no,
+       title,
+       u.name,
+       hit,
+       reg_date,
+       user_no
+from board b left outer join users u
+on   b.user_no = u.no 
+where u.name like '정우'
+order by no asc;
+
+
+
+
 
 --테이블 생성
 create table board(
