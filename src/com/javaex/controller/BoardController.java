@@ -131,19 +131,22 @@ public class BoardController extends HttpServlet {
 			
 			// 이름을 keyword로 한 검색 리스트 setAttri
 			request.setAttribute("bList", bd.getList(keyName));
-			request.setAttribute("page", 1);
 			
-			WebUtil.forward("/WEB-INF/views/board/list.jsp", request, response);
-			
+			WebUtil.forward("/WEB-INF/views/board/listSecond.jsp", request, response);
 		}
 		
 		else {
 			
+			int page = Integer.parseInt(request.getParameter("page"));
+			
 			bd = new BoardDao();
 			
-			request.setAttribute("bList", bd.getList());
 			
-			WebUtil.forward("/WEB-INF/views/board/list.jsp", request, response);
+			request.setAttribute("bList", bd.getList(page));
+			
+			//페이징을 위한 총 게시글 개수를 구하는 메서드 count and setAttri 시켜주기
+			request.setAttribute("totalPost", bd.count());
+			WebUtil.forward("/WEB-INF/views/board/listSecond.jsp", request, response);
 			
 		}
 	

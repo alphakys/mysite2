@@ -19,7 +19,7 @@ where b.no = '3' and b.user_no = u.no;
 
 select name,
         hit,
-        reg_date,
+        to_char(reg_date, 'yyyy-mm-dd hh24:mi'),
         title
 from board b left outer join users u
 on   b.user_no = u.no
@@ -37,6 +37,37 @@ from board b left outer join users u
 on   b.user_no = u.no 
 where u.name like '정우'
 order by no asc;
+
+select count(no)
+from board;
+
+delete board
+where no='38';
+
+
+select b.no,
+       title,
+       u.name,
+       hit,
+       reg_date,
+       user_no
+       
+from board b left outer join users u
+             on   b.user_no = u.no
+             inner join (select rownum r,
+                                       no
+                         from  (select no,
+                                       rownum  
+                                from board
+                                order by no desc)
+                        ) rn
+              on rn.no = b.no          
+             where rn.r <=10 and rn.r >=1;
+
+select count(no)
+from board;
+
+
 
 
 
@@ -64,7 +95,7 @@ start with 1
 nocache;
 
 delete board 
-where no = '1';
+where no = '35';
 
 select *
 from board;

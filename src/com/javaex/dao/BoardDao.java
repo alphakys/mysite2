@@ -113,7 +113,72 @@ public class BoardDao {
 	
 		
 		
+		//페이징을 위한 리스트 정보 가져오기
+		//모든 리스트 가져와서 뿌리면 리스트 수가 많아지면 시간이 오래 걸릴것 같아 DB에서 필요한 정보 수만큼 뿌리는 방향으로 바꾼 쿼리
+				public List<BoardVo> getList(int page){
+					
+					getConnection();
+					
+					bList = new ArrayList<>();
+					
+					try {
+					    // 3. SQL문 준비 / 바인딩 / 실행
+					    String query = "select   b.no, ";			   
+					    	   query += "        title, ";
+					    	   query += "        u.name, ";		    
+					    	   query += "        hit, ";
+					    	   query += "        to_char(reg_date, 'yyyy-mm-dd hh24:mi'), ";
+					    	   query += "        user_no ";
+					    	   query += "from    board b left outer join users u ";
+					    	   query += "on   	 b.user_no = u.no ";
+					    	   query += "		 inner join (select rownum r, ";
+					    	   query += "		 						   no ";
+					    	   query += "		 			 from	(select no,	";
+					    	   query += "		 						    rownum ";
+					    	   query += "		 				     from   board ";
+					    	   query += "		 						    order by no desc) ";
+					    	   query += "		 			 ) rn ";
+					    	   query += "		 			 on rn.no = b.no ";
+					    	   query += "		 			 where rn.r >= ? and rn.r <= ? ";
+
+					    	   
+					    pstmt = conn.prepareStatement(query);
+					    
+					    pstmt.setInt(1, ((page-1)*10) +1);
+					    pstmt.setInt(2, page*10);
+					    
+					    rs = pstmt.executeQuery();
+					    
+					    while(rs.next()) {
+					    	
+					    	int no = rs.getInt(1);		
+					    	String title = rs.getString(2);
+					    	String name = rs.getString(3);
+					    	int hit = rs.getInt(4);
+					    	String date = rs.getString(5);
+					    	int userNo = rs.getInt(6);
+					    	
+					    	bList.add(new BoardVo(no, title, name, hit, date, userNo));
+					    }
+					   
+					    
+					    
+					}  catch (SQLException e) {
+					    System.out.println("error:" + e);
+					} 
+					
+					
+					close();
+					
+					return bList;
+				}
 		
+		
+				
+				
+				
+				
+				
 		//모든 리스트 정보 가져오기
 		public List<BoardVo> getList(){
 			
@@ -161,7 +226,89 @@ public class BoardDao {
 			return bList;
 		}
 	
-	
+		
+		//이름으로 검색한 리스트 가져오기
+		public List<BoardVo> getList(String keyName){
+				
+				getConnection();
+				
+				bList = new ArrayList<>();
+				
+				try {
+				    // 3. SQL문 준비 / 바인딩 / 실행
+				    String query = "select   b.no, ";			   
+				    	   query += "        title, ";
+				    	   query += "        u.name, ";		    
+				    	   query += "        hit, ";
+				    	   query += "        to_char(reg_date, 'yyyy-mm-dd hh24:mm'), ";
+				    	   query += "        user_no ";
+				    	   query += "from    board b left outer join users u ";
+				    	   query += "on   	 b.user_no = u.no ";
+				    	   query += "where   u.name = ? ";
+				    	   query += "order by  no desc ";
+				    	   
+				    	   
+				    pstmt = conn.prepareStatement(query);	   
+				    rs = pstmt.executeQuery();
+				    
+				    while(rs.next()) {
+				    	
+				    	int no = rs.getInt(1);		
+				    	String title = rs.getString(2);
+				    	String name = rs.getString(3);
+				    	int hit = rs.getInt(4);
+				    	String date = rs.getString(5);
+				    	int userNo = rs.getInt(6);
+				    	
+				    	bList.add(new BoardVo(no, title, name, hit, date, userNo));
+				    }
+				   
+				    
+				    
+				}  catch (SQLException e) {
+				    System.out.println("error:" + e);
+				} 
+				
+				
+				close();
+				
+				return bList;
+			}
+		
+		
+		//페이징을 위한 총 게시글 개수 가져오는 메소드
+		public int count() {
+			
+			getConnection();
+			
+			int totalPost=0;
+			try {
+			    // 3. SQL문 준비 / 바인딩 / 실행
+			    String query = "select   count(no) ";
+			    	   query += "from 	 board ";
+		
+			    pstmt = conn.prepareStatement(query);	   
+			    rs = pstmt.executeQuery();
+			    
+			    while(rs.next()) {
+			    	
+			    	totalPost = rs.getInt(1);
+			    }
+			      
+			   
+			   conn.commit();
+		
+			}  catch (SQLException e) {
+			    System.out.println("error:" + e);
+			} 
+			
+			close();
+			
+			return totalPost;
+		}
+		
+		
+		//선택된 게시글을 뿌려줄 데이터 가져오는 메소드
 		public BoardVo getPost(int num){
 			
 			getConnection();
@@ -243,6 +390,7 @@ public class BoardDao {
 		}
 		
 		
+		//게시글 수정 메소드
 		public int update(int no, String title, String content ){
 			
 			getConnection();
@@ -275,7 +423,7 @@ public class BoardDao {
 		}
 		
 		
-		
+		//게시글 삭제 메소드
 		public int delete(int no) {
 			
 			getConnection();
@@ -304,54 +452,6 @@ public class BoardDao {
 		}
 		
 		
-		//이름으로 검색한 리스트 가져오기
-			public List<BoardVo> getList(String keyName){
-					
-					getConnection();
-					
-					bList = new ArrayList<>();
-					
-					try {
-					    // 3. SQL문 준비 / 바인딩 / 실행
-					    String query = "select   b.no, ";			   
-					    	   query += "        title, ";
-					    	   query += "        u.name, ";		    
-					    	   query += "        hit, ";
-					    	   query += "        to_char(reg_date, 'yyyy-mm-dd hh24:mm'), ";
-					    	   query += "        user_no ";
-					    	   query += "from    board b left outer join users u ";
-					    	   query += "on   	 b.user_no = u.no ";
-					    	   query += "where   u.name = ? ";
-					    	   query += "order by  no desc ";
-					    	   
-					    	   
-					    pstmt = conn.prepareStatement(query);	   
-					    rs = pstmt.executeQuery();
-					    
-					    while(rs.next()) {
-					    	
-					    	int no = rs.getInt(1);		
-					    	String title = rs.getString(2);
-					    	String name = rs.getString(3);
-					    	int hit = rs.getInt(4);
-					    	String date = rs.getString(5);
-					    	int userNo = rs.getInt(6);
-					    	
-					    	bList.add(new BoardVo(no, title, name, hit, date, userNo));
-					    }
-					   
-					    
-					    
-					}  catch (SQLException e) {
-					    System.out.println("error:" + e);
-					} 
-					
-					
-					close();
-					
-					return bList;
-				}
-			
 			
 				
 				
