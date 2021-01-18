@@ -248,7 +248,10 @@ public class BoardDao {
 				    	   query += "order by  no desc ";
 				    	   
 				    	   
-				    pstmt = conn.prepareStatement(query);	   
+				    pstmt = conn.prepareStatement(query);
+				    //1.18 12:21분 수정!! 검색기능 테스트중 오류 발견해서 이 부분 수정하고 커밋했습니다
+				    pstmt.setString(1, keyName);
+				    
 				    rs = pstmt.executeQuery();
 				    
 				    while(rs.next()) {
