@@ -250,8 +250,9 @@ public class BoardDao {
 				    	   
 				    pstmt = conn.prepareStatement(query);
 				    //1.18 12:21분 수정!! 검색기능 테스트중 오류 발견해서 이 부분 수정하고 커밋했습니다
+				    //**************************
 				    pstmt.setString(1, keyName);
-				    
+				    //**************************
 				    rs = pstmt.executeQuery();
 				    
 				    while(rs.next()) {
@@ -311,6 +312,46 @@ public class BoardDao {
 		}
 		
 		
+		
+		//검색한 리스트의 페이징을 위한 게시글 수
+		public int seachCount(String keyword) {
+			
+			getConnection();
+			
+			int totalPost=0;
+			
+			try {
+			    // 3. SQL문 준비 / 바인딩 / 실행
+			    String query = "select   count(b.no) ";
+			    	   query += "from 	 board b, users u ";
+			    	   query += "where   b.user_no = u.no and u.name = ? ";
+
+		
+			    pstmt = conn.prepareStatement(query);
+			    pstmt.setString(1,keyword);
+			    
+			    rs = pstmt.executeQuery();
+			    
+			    while(rs.next()) {
+			    	
+			    	totalPost = rs.getInt(1);
+			    }
+			      
+			   
+			   conn.commit();
+		
+			}  catch (SQLException e) {
+			    System.out.println("error:" + e);
+			} 
+			
+			close();
+			
+			return totalPost;
+		}
+		
+		
+		
+		
 		//선택된 게시글을 뿌려줄 데이터 가져오는 메소드
 		public BoardVo getPost(int num){
 			
@@ -360,9 +401,43 @@ public class BoardDao {
 			return bv;
 		}
 		
+		////////////////////////////////////////////////////////
+		//오라클에서 바로 hit을 불러서 사용할 수 있다 !!!!!!!!!!메모!!!!!!!!!!!!
+		
+		//조회수 업데이트 1번 방식
+				public int updateHit(int no){
+					
+					getConnection();
+					
+					try {
+					    // 3. SQL문 준비 / 바인딩 / 실행
+					    String query = "update board ";
+					    	   query += "set hit = hit+1 ";
+					    	   query += "where no = ? ";
+				
+					    pstmt = conn.prepareStatement(query);	   
+					   
+					    pstmt.setInt(1, no);
+					    
+					    
+					    // 4. 결과처리
+					   count = pstmt.executeUpdate();
+					   
+					   conn.commit();
+				
+					}  catch (SQLException e) {
+					    System.out.println("error:" + e);
+					} 
+					
+					close();
+					
+					return count;
+				}
 		
 		
-		//조회수 업데이트 
+		
+		/*
+		//조회수 업데이트 2번 방식
 		public int updateHit(int no, int hit){
 			
 			getConnection();
@@ -374,7 +449,7 @@ public class BoardDao {
 			    	   query += "where no = ? ";
 		
 			    pstmt = conn.prepareStatement(query);	   
-			    pstmt.setInt(1, hit);
+			    pstmt.setInt(1, hit+1);
 			    pstmt.setInt(2, no);
 			    
 			    
@@ -391,7 +466,7 @@ public class BoardDao {
 			
 			return count;
 		}
-		
+		*/
 		
 		//게시글 수정 메소드
 		public int update(int no, String title, String content ){

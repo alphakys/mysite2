@@ -68,12 +68,8 @@ public class BoardController extends HttpServlet {
 			bd = new BoardDao();
 			
 			BoardVo post = bd.getPost(no);
-			
-			int hit = post.getHit();
-			hit+= 1;
-			
-			post.setHit(hit);
-			bd.updateHit(no, hit);
+						
+			bd.updateHit(no);
 			
 			request.setAttribute("post", post);
 			
@@ -131,8 +127,10 @@ public class BoardController extends HttpServlet {
 			
 			// 이름을 keyword로 한 검색 리스트 setAttri
 			request.setAttribute("bList", bd.getList(keyName));
+			request.setAttribute("totalPost", bd.seachCount(keyName));
 			
 			WebUtil.forward("/WEB-INF/views/board/listSecond.jsp", request, response);
+			
 		}
 		
 		else {

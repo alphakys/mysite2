@@ -67,9 +67,20 @@ from board b left outer join users u
 select count(no)
 from board;
 
+select b.no,
+       title,
+       u.name,
+       hit,
+       reg_date,
+       user_no
+from board b left outer join users u
+on   b.user_no = u.no 
+where u.name = '정'
+order by no desc;
 
-
-
+select count(b.no)
+from board b, users u
+where b.user_no = u.no and u.name = '정'; 
 
 
 

@@ -121,8 +121,8 @@
 							<!--   ◀이전 페이지 -->
 							<c:choose>
 							 	<c:when test="${param.page <= 1}">
-							
-									<li><a href="/mysite2/board?page=${param.page eq 1}">◀</a></li>
+								
+									<li><a href="/mysite2/board?page=1">◀</a></li>
 							
 								</c:when>
 								
@@ -209,19 +209,15 @@
 					
 					
 					<!-- 로그인시 글쓰기 가능 기능 -->
-					<c:choose>
 					
-						<c:when test="${sessionScope.authUser.no eq bv.userNo}">
-						
-						</c:when>
-							
-						<c:otherwise>
-							
+					
+						<c:if test="${sessionScope.authUser.no eq bv.userNo}">
 							<a id="btn_write" href="/mysite2/board?action=writeForm">글쓰기</a>
+						</c:if>
+							
+					
 						
-						</c:otherwise>
-						
-					</c:choose>
+					
 				
 				
 				
